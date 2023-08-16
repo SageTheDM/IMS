@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class App {
+public class Testcode {
     public static void main(String[] args) {
         System.out.println("A code request you have made,");
         System.out.println("Fear not, for I am here to aid.");
