@@ -15,5 +15,11 @@ public class Grundlagen {
         } else {
             System.out.println("Der Wert ist kleiner als 101");  
         }
+
+        int anzahlDurchgaenge = 1;
+        while(anzahlDurchgaenge <= 5) {
+            System.out.println("Durchgang nr. " + anzahlDurchgaenge);
+            anzahlDurchgaenge = anzahlDurchgaenge + 1;
+        }
     }
 }
