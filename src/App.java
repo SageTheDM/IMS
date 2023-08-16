@@ -10,17 +10,18 @@ public class App {
         // Creating a Random object
         Random random = new Random();
         
-        // Define the range for x and y
-        int minRange = -1000;
-        int maxRange = 1000;
+        // Define the range for x, y and z
+        int minRange = -10000;
+        int maxRange = 10000;
 
         // Generate random values for x and y within the specified range
         int x = random.nextInt(maxRange - minRange + 1) + minRange;
         int y = random.nextInt(maxRange - minRange + 1) + minRange;
+        int z = random.nextInt(maxRange - minRange + 1) + minRange;
 
-        int sum = x + y;
+        int sum = x + y + z;
 
-        System.out.println("The sum of " + x + " and " + y + " is: " + sum);
+        System.out.println("The sum of " + x + " " + y + " and " + z + " is: " + sum);
 
         System.out.println("May the code be with you!");
     }
