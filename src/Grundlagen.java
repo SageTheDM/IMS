@@ -11,7 +11,9 @@ public class Grundlagen {
         char myA = 'a';
 
         if (x > 101) {
-            System.out.println("Der Wert is grösser als 101");
+            System.out.println("Der Wert ist grösser als 101");
+        } else {
+            System.out.println("Der Wert ist kleiner als 101");  
         }
     }
 }
