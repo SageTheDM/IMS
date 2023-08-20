@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Testcode {
     public static void main(String[] args) {
+       
         System.out.println("A code request you have made,");
         System.out.println("Fear not, for I am here to aid.");
         System.out.println("In Java, a language so grand,");
@@ -23,13 +24,13 @@ public class Testcode {
 
         int sum = x + y + z;
 
-        System.out.println("The sum of " + x + " " + y + " and " + z + " is: " + sum);
+        System.out.println("The sum of " + x + ", " + y + " and " + z + " is: " + sum);
 
         System.out.println("May the code be with you!");
     
         // Testing Inputs with a gap text
 
-         // Display a popup dialog and get user input
+        // Display a popup dialog and get user input
         String a = JOptionPane.showInputDialog("Please enter a verb (-ing):");
         String b = JOptionPane.showInputDialog("Please enter a location:");
         String c = JOptionPane.showInputDialog("Please enter a color:");
