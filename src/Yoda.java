@@ -1,7 +1,5 @@
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 public class Yoda {
     public static void main(String[] args) {
         // Print text

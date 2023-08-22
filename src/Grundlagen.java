@@ -1,7 +1,3 @@
-import java.util.Random;
-
-import javax.swing.JOptionPane;
-
 public class Grundlagen {
     public static void main(String[] args) {
 
