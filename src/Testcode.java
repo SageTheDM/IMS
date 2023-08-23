@@ -6,6 +6,7 @@ public class Testcode {
 
         System.out.println(sum);
         byte x = 127;
+        System.out.println(x);
 
     }
 }
