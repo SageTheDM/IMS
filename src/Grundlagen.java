@@ -28,5 +28,18 @@ public class Grundlagen {
             System.out.println("Durchgang nr. " + anzahlDurchgaenge);
             anzahlDurchgaenge = anzahlDurchgaenge + 1;
         }
+
+        // Datentypen
+        byte myByte = 127;
+        short myShort = 300;
+
+        // With float the f is necassary because java otherwise treats it as a double
+        // (simplified anwser)
+        double myDoubleValue = 34.568956;
+        float myFloatValue = 17.567f;
+
+        // Constant always uppercase // Fixed Number
+
+        final double PI = 3.141592876;
     }
 }
