@@ -1,0 +1,32 @@
+Methodem:
+
+Var 1 -- Video:
+video bearbeitung
+
+Input: 
+Roh Videos
+Filter
+Musik etc.
+
+Verabeitung:
+Zusammenschnitt
+
+Output:
+Fertiges Video
+
+
+Var 2 -- RPG:
+
+Input:
+Charackter
+Angriff
+Level
+
+Verabeitung:
+Brechnung/randomizer
+treffen?
+schaden?
+etc.
+
+Output:
+Schaden oder keiner

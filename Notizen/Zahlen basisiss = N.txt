@@ -1,0 +1,41 @@
+Mathematische Anweisung (Kopf):
+
+
+Zahlen basisiss = N
+a-1=b
+b-1=c
+c-1=d
+
+Variable = 1 ; Stop
+a = 55
+
+a+b+c+d+e.....= Ergebniss
+
+
+Mathematische Anweisung (Google):
+
+
+(n × (n + 1))/2
+
+Beispiel:
+
+(8 x (8 + 1) / 2 = 36
+
+
+sprachliche Anweisungen:
+
+
+minimale zahl = x
+maximale = y
+Addiere alle ganzen Zahlen in dieser Spanne!
+
+Beispiel=
+
+x=1
+y=8
+
+1+2+3+4+5+6+7+8=36
+
+
+
+
