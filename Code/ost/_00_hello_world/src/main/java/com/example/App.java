@@ -12,12 +12,13 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
+    
     public void start(Stage stage) {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
 
-        var label = new Label("Hello World");
-        var scene = new Scene(new StackPane(label), 100, 100);
+        var label = new Label("Hello, World");
+        var scene = new Scene(new StackPane(label), 640, 480);
         stage.setScene(scene);
         stage.show();
     }

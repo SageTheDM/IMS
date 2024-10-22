@@ -1,5 +1,6 @@
-public class Storage {
+
+class Storage {
     int storageId;
-    String name;
-    Unit unit = new Unit();
+    Article article = new Article();
+    int quantaty;
 }
