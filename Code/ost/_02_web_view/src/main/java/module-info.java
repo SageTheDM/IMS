@@ -1,5 +1,6 @@
-module com.example {
+module org.interstellar {
     requires javafx.controls;
     requires javafx.web;
-    exports com.example;
+
+    exports org.interstellar;
 }
