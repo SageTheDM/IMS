@@ -17,11 +17,11 @@ public class App extends Application {
         AnchorPane anchorPane = new AnchorPane();
 
         // Create Controll button
-        Button controlButton = new Button("Button");
-        AnchorPane.setTopAnchor(controlButton, 50.0);
-        AnchorPane.setLeftAnchor(controlButton, 50.0);
-        AnchorPane.setRightAnchor(controlButton, 10.0);
-        AnchorPane.setBottomAnchor(controlButton, 10.0);
+        Button mainButton = new Button("Button");
+        AnchorPane.setTopAnchor(mainButton, 50.0);
+        AnchorPane.setLeftAnchor(mainButton, 50.0);
+        AnchorPane.setRightAnchor(mainButton, 10.0);
+        AnchorPane.setBottomAnchor(mainButton, 10.0);
 
         // Create Button 1
         Button button1 = new Button("Button 1");
@@ -29,7 +29,7 @@ public class App extends Application {
         AnchorPane.setLeftAnchor(button1, 10.0);
 
         // Add buttons to the pane
-        anchorPane.getChildren().addAll(controlButton, button1);
+        anchorPane.getChildren().addAll(mainButton, button1);
 
         // Set up the Scene with AnchorPane
         Scene scene = new Scene(anchorPane, 640, 480);
