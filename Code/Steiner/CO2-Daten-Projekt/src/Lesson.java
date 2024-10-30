@@ -33,4 +33,21 @@ public class Lesson {
     public String getDay() {
         return day;
     }
+
+    public boolean isBreak() {
+        // Logic if it is between lessons
+        return false;
+    }
+
+    public boolean isBigBreak() {
+        // is the break longer than 5 minutes
+        // But was not the last lesson of the day
+        // Is not Lunch break
+        return false;
+    }
+
+    public boolean isTeacherSwitch() {
+        // is a another teacher in this room
+        return false;
+    }
 }

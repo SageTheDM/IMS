@@ -52,8 +52,7 @@ public class App {
         // Maximum points for a long break: 10 points.
         // Plus 5 bonus points if the teachers are switching after.
         for (Teacher teacher : teachers) {
-            // Implement logic to calculate points for each teacher
-            teacher.setPoints(0); // Replace with actual calculation
+            teacher.setPoints(0);
         }
     }
 
