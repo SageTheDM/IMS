@@ -1,32 +1,24 @@
-import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
 
+// Main application class
 public class App {
     private static final Scanner scanner = new Scanner(System.in); // Initialize the scanner
 
     // Constants for rooms and timetable dimensions
     private static final int ROOM_COUNT = 3;
     private static final int DAY_COUNT = 5;
-    private static final int LESSON_COUNT = 12;
-
-    // Data sources for different rooms
-    private static final List<Data> room39Data = Data.getData("https://api.thingspeak.com/channels/1521262/feeds.csv",
-            39);
-    private static final List<Data> room38Data = Data.getData("https://api.thingspeak.com/channels/1364580/feeds.csv",
-            38);
-    private static final List<Data> room37Data = Data.getData("https://api.thingspeak.com/channels/1521263/feeds.csv",
-            37);
+    private static final int LESSON_COUNT = 12; // Updated to match the lengths of START_TIMES and END_TIMES
 
     // Time table
     public static final Lesson[][][] timeTable = new Lesson[ROOM_COUNT][DAY_COUNT][LESSON_COUNT];
 
     // Teacher initials and array
     private static final String[] TEACHER_INITIALS = {
-            "Bä", "Bd", "Bu", "Cg", "Di", "Do", "Eh", "Es", "Fh", "Gi",
-            "Gr", "Hm", "Hi", "Kg", "Kh", "Lz", "Lu", "Or", "Re", "Se",
-            "Ts", "Vt", "Zu"
+            "Bd", "Bu", "Cg", "Do", "Eh", "Fh", "Gi", "Gr", "Hm", "Hi",
+            "Kg", "Kh", "Lz", "Lu", "Or", "Re", "Se", "Ts", "Vt", "Zu"
     };
+
     private static final Teacher[] teachers = new Teacher[TEACHER_INITIALS.length];
 
     // Initialization of teachers
@@ -45,14 +37,28 @@ public class App {
 
     // Calculate points based on criteria
     private static void calculatePoints() {
-        // TODO: Implement point calculation logic based on specific criteria.
-        // Example: If a teacher opens the window during a small break (entire break 5
-        // points - can
-        // be reduced by the amount the window was open).
-        // Maximum points for a long break: 10 points.
-        // Plus 5 bonus points if the teachers are switching after.
-        for (Teacher teacher : teachers) {
-            teacher.setPoints(0);
+        for (int day = 0; day < DAY_COUNT; day++) {
+            for (int room = 0; room < ROOM_COUNT; room++) {
+                for (int lessonIndex = 0; lessonIndex < LESSON_COUNT - 1; lessonIndex++) {
+                    Lesson currentLesson = timeTable[room][day][lessonIndex];
+                    Lesson nextLesson = timeTable[room][day][lessonIndex + 1];
+
+                    // Ensure both current and next lessons are not null
+                    if (currentLesson != null && nextLesson != null) {
+                        // Calculate points for the current lesson based on the next lesson
+                        int points = currentLesson.calculatePoints(nextLesson);
+
+                        // Update the points for the teacher associated with the current lesson
+                        String currentTeacherName = currentLesson.getTeacherName();
+                        for (Teacher teacher : teachers) {
+                            if (teacher.getName().equals(currentTeacherName)) {
+                                teacher.addPoints(points); // Update teacher points
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -64,22 +70,20 @@ public class App {
     // Print the teachers and their points
     private static void printTeachers() {
         System.out.println("Teachers and their points:");
-
-        int rank = 1; // Start with rank 1
-        int previousPoints = -1; // Track the points of the previous teacher
-        int currentRankCount = 0; // Count how many teachers share the same rank
+        int rank = 1;
+        int previousPoints = -1;
+        int currentRankCount = 0;
 
         for (Teacher teacher : teachers) {
             if (teacher.getPoints() != previousPoints) {
-                rank += currentRankCount; // Update rank if points are different
-                currentRankCount = 1; // Reset count for the new points
+                rank += currentRankCount;
+                currentRankCount = 1;
             } else {
-                currentRankCount++; // Increment count for same points
+                currentRankCount++;
             }
 
-            // Print the teacher with their rank and points
             System.out.printf("%d. %s - %d points%n", rank, teacher.getName(), teacher.getPoints());
-            previousPoints = teacher.getPoints(); // Update previous points
+            previousPoints = teacher.getPoints();
         }
     }
 
@@ -88,17 +92,18 @@ public class App {
         System.out.println(textOutput);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            scanner.next(); // Clear the invalid input
+            scanner.next();
         }
-        return scanner.nextInt(); // Read user input
+        return scanner.nextInt();
     }
 
     // Print explanation of point calculations
     private static void printExplanation() {
         System.out.println("Point calculation explanation:");
-        System.out.println("1. 5 points for keeping the window open during a small break.");
-        System.out.println("2. Up to 10 points for long breaks, with deductions for window usage.");
-        System.out.println("3. Bonus points for switching teachers.");
+        System.out.println("1. Up to 5 points for keeping the window open during a small break.");
+        System.out.println(
+                "2. Up to 10 points for long breaks, depending on the duration the window is open and deductions for usage.");
+        System.out.println("3. Additional 5 bonus points for switching teachers if another teacher is in the room.");
     }
 
     // Print shutdown animation
@@ -107,7 +112,7 @@ public class App {
         for (int i = 3; i > 0; i--) {
             System.out.print(i + "...");
             try {
-                Thread.sleep(1000); // Sleep for 1 second
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -131,10 +136,9 @@ public class App {
         } else if (userInput == 0) {
             printShutDown();
         } else {
-            // Handle invalid input
             System.out.println("Invalid input. Please enter 1 for Yes or 0 for No.");
         }
 
-        scanner.close(); // Close the scanner to avoid resource leaks
+        scanner.close();
     }
 }

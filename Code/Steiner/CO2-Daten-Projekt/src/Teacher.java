@@ -11,14 +11,11 @@ public class Teacher {
     // Static block to initialize the name mappings
     static {
         nameMap.put("Hm", "Hummel");
-        nameMap.put("Bä", "Bäcker");
         nameMap.put("Bd", "Bender");
         nameMap.put("Bu", "Burger");
         nameMap.put("Cg", "Chung");
-        nameMap.put("Di", "Dimitrov");
         nameMap.put("Do", "Doe");
         nameMap.put("Eh", "Ehrlich");
-        nameMap.put("Es", "Esposito");
         nameMap.put("Fh", "Fischer");
         nameMap.put("Gi", "Giordano");
         nameMap.put("Gr", "Graham");
@@ -33,17 +30,17 @@ public class Teacher {
         nameMap.put("Ts", "Tanaka");
         nameMap.put("Vt", "Vetter");
         nameMap.put("Zu", "Zuniga");
-        // Add more mappings as needed
+        // No additional mappings beyond those present in the timetable
     }
 
     // Constructor
     public Teacher(String name) {
         setName(name);
-        points = 0;
+        points = 0; // Initialize points to zero
     }
 
     public String getName() {
-        return name;
+        return name; // Return the full name of the teacher
     }
 
     public void setName(String name) {
@@ -51,10 +48,14 @@ public class Teacher {
     }
 
     public int getPoints() {
-        return points;
+        return points; // Return the current points
     }
 
     public void setPoints(int points) {
-        this.points = points;
+        this.points = points; // Set the points to a specific value
+    }
+
+    public void addPoints(int points) {
+        this.points += points; // Add points to the current total
     }
 }
