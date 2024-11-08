@@ -2,10 +2,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Teacher {
+    // #region Fields
     private String name;
     private Points points;
 
     public static final Map<String, String> nameMap = new HashMap<>();
+
+    // #region Initialization
     static {
         nameMap.put("Hm", "Hummel");
         nameMap.put("Bd", "Bender");
@@ -29,11 +32,14 @@ public class Teacher {
         nameMap.put("Zu", "Zuniga");
     }
 
+
+    // #region Constructor
     public Teacher(String name) {
         this.name = nameMap.getOrDefault(name, "Unknown");
         this.points = new Points();
     }
 
+    // #region Getters
     public String getName() {
         return name;
     }
@@ -41,4 +47,5 @@ public class Teacher {
     public Points getPoints() {
         return points;
     }
+
 }

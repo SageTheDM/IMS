@@ -9,11 +9,13 @@ public class Co2Data {
     private Date date;
     private int co2Level;
 
+    // #region Constructor
     public Co2Data(Date date, int co2Level) {
         this.date = date;
         this.co2Level = co2Level;
     }
 
+    // #region Getters Setters
     public Date getDate() {
         return date;
     }
@@ -30,8 +32,12 @@ public class Co2Data {
         this.co2Level = co2Level;
     }
 
+    // #region Fetching & Parsing
     public static List<Co2Data> getData(String csvURL, int classRoomNumber) {
         List<Co2Data> dataList = new ArrayList<>();
+
+        // Reference date: August 11, 2024
+        Date referenceDate = new Date(11, 8, 2024, 0, 0); // Set time to 00:00 as we only care about the date
 
         try {
             URL url = new URL(csvURL);
@@ -52,7 +58,7 @@ public class Co2Data {
 
             while ((output = br.readLine()) != null) {
                 Co2Data data = parseData(output, classRoomNumber);
-                if (data != null) {
+                if (data != null && isNewerThanReferenceDate(data.getDate(), referenceDate)) {
                     dataList.add(data);
                 }
             }
@@ -63,6 +69,21 @@ public class Co2Data {
         }
 
         return dataList; // Return the list of Co2Data objects
+    }
+
+    // Helper method to compare dates
+    private static boolean isNewerThanReferenceDate(Date dataDate, Date referenceDate) {
+        // Compare year, month, and day only (ignoring the time part)
+        if (dataDate.getYear() > referenceDate.getYear()) {
+            return true;
+        } else if (dataDate.getYear() == referenceDate.getYear()) {
+            if (dataDate.getMonth() > referenceDate.getMonth()) {
+                return true;
+            } else if (dataDate.getMonth() == referenceDate.getMonth()) {
+                return dataDate.getDay() > referenceDate.getDay();
+            }
+        }
+        return false;
     }
 
     private static Co2Data parseData(String csvLine, int classRoomNumber) {
@@ -94,5 +115,11 @@ public class Co2Data {
             System.out.println("Error parsing data: " + e);
             return null;
         }
+    }
+
+    // #region toString Override
+    @Override
+    public String toString() {
+        return this.date.toString() + "\n" + this.co2Level;
     }
 }

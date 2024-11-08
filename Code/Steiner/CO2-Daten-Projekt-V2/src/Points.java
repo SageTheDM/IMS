@@ -1,9 +1,11 @@
 // Points class for managing point categories
 public class Points {
+    // #region Fields
     private int fiveMinuteBreak;
     private int longerBreak;
     private int bonusPoints;
 
+    // #region Getters Setters
     public int getFiveMinuteBreak() {
         return fiveMinuteBreak;
     }
@@ -28,8 +30,10 @@ public class Points {
         this.bonusPoints = bonusPoints;
     }
 
+    // #region Calculation
     // Method to calculate total points
     public int getTotalPoints() {
         return fiveMinuteBreak + longerBreak + bonusPoints;
     }
+
 }

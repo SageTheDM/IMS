@@ -1,5 +1,5 @@
-
 public class FillTable {
+    // #region Constants
     private static final String[] START_TIMES = {
             "7:45", "8:35", "9:40", "10:30", "11:20", "12:10", "12:50",
             "13:35", "14:25", "15:15", "16:15", "17:05"
@@ -10,6 +10,7 @@ public class FillTable {
             "14:20", "15:10", "16:10", "17:00", "17:50"
     };
 
+    // #region Helper Methods
     private static void fillTable(String[] teacherShortNames, String day, String[] startTime, String[] endTime,
             int roomIndex) {
         int dayIndex = getDayIndex(day);
@@ -37,6 +38,7 @@ public class FillTable {
         }
     }
 
+    // #region Fill 37
     static void fill37TimeTable() {
         int roomIndex = 0;
         fillTable(new String[] { "Hm", "Hm", "Hi", "Hm", "Hm", "Lunch", "Bd", "Gi", "Gi", "Ts", "Ts", "" },
@@ -51,6 +53,7 @@ public class FillTable {
                 "Friday", START_TIMES, END_TIMES, roomIndex);
     }
 
+    // #region Fill 38
     static void fill38TimeTable() {
         int roomIndex = 1;
         fillTable(new String[] { "Bz", "Bz", "Bz", "Bz", "Bz", "Lunch", "Lunch", "Hn", "Hn", "Bu", "Hn", "Hn" },
@@ -65,6 +68,7 @@ public class FillTable {
                 "Friday", START_TIMES, END_TIMES, roomIndex);
     }
 
+    // #region Fill 39
     static void fill39TimeTable() {
         int roomIndex = 2;
         fillTable(new String[] { "Bd", "Bd", "Bd", "Bd", "Bd", "Lunch", "Lunch", "Lu", "Lu", "Lu", "Lu", "" },
@@ -78,4 +82,5 @@ public class FillTable {
         fillTable(new String[] { "Gi", "Gi", "Gr", "Gr", "Gi", "Lunch", "Lunch", "Hi", "Hi", "Hi", "", "" },
                 "Friday", START_TIMES, END_TIMES, roomIndex);
     }
+
 }
