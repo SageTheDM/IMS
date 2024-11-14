@@ -41,12 +41,16 @@ public class App {
             Date temp = co2Data.getDate();
             int intHour = temp.getHour();
             int intMinute = temp.getMinute();
+            int intDay = temp.getDay();
             if (FillTable.isBreak(intHour, intMinute)) {
-                String whatBreak = FillTable.whatBreakIsIt(intHour, intMinute);
+                String whatBreak = FillTable.whatBreakIsIt(intHour, intMinute, intDay);
 
                 switch (whatBreak) {
                     case "short":
-
+                        calculateFiveMinuteBreakPoints(co2Data);
+                        break;
+                    case "long":
+                        calculateLongerBreakPoints(co2Data);
                         break;
 
                     default:
@@ -57,11 +61,12 @@ public class App {
     }
 
     private static int calculateFiveMinuteBreakPoints(Co2Data data) {
-
+        calculateBonusPoints(data);
         return 5;
     }
 
     private static int calculateLongerBreakPoints(Co2Data data) {
+        calculateBonusPoints(data);
         return 10;
     }
 
@@ -152,6 +157,7 @@ public class App {
             // debbugingValueLists(room38Data);
             // debbugingValueLists(room39Data);
         } else {
+            System.out.println("Calculations in process please do not shut off...");
             fillInTimeTable();
             initializeTeachers();
             calculatePoints(room37Data);
@@ -159,19 +165,21 @@ public class App {
             calculatePoints(room39Data);
             sortTeachers();
             printTeachers();
+            while (true) {
+                int userInput = getUserInput(
+                        "Do you want to see how the points were calculated? (Yes 1, No 0; anything is an error)");
 
-            int userInput = getUserInput(
-                    "Do you want to see how the points were calculated? (Yes 1, No 0; anything is an error)");
-
-            if (userInput == 1) {
-                printExplanation();
-                printShutDown();
-            } else if (userInput == 0) {
-                printShutDown();
-            } else {
-                System.out.println("Invalid input. Please enter 1 for Yes or 0 for No.");
+                if (userInput == 1) {
+                    printExplanation();
+                    printShutDown();
+                    break;
+                } else if (userInput == 0) {
+                    printShutDown();
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter 1 for Yes or 0 for No.");
+                }
             }
-
             scanner.close();
         }
     }
