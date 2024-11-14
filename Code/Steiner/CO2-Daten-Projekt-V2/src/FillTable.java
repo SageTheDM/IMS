@@ -83,4 +83,66 @@ public class FillTable {
                 "Friday", START_TIMES, END_TIMES, roomIndex);
     }
 
+    static boolean isBreak(int intHour, int intMinute) {
+        // Check if the time is between 7 AM and 5 PM
+        if (intHour >= 7 && intHour <= 17) {
+            // Check if the time falls between any lesson start and end times
+            for (int i = 0; i < START_TIMES.length; i++) {
+                // Split the start and end times into hours and minutes
+                String[] startTime = START_TIMES[i].split(":");
+                String[] endTime = END_TIMES[i].split(":");
+
+                int startHour = Integer.parseInt(startTime[0]);
+                int startMinute = Integer.parseInt(startTime[1]);
+                int endHour = Integer.parseInt(endTime[0]);
+                int endMinute = Integer.parseInt(endTime[1]);
+
+                // Check if the given time is during the current lesson
+                if ((intHour > startHour || (intHour == startHour && intMinute >= startMinute)) &&
+                        (intHour < endHour || (intHour == endHour && intMinute < endMinute))) {
+                    return false; // It's not a break, it's during a lesson
+                }
+            }
+            return true; // If no lessons match, it must be a break
+        }
+
+        return false; // Time is outside of the school hours (7 AM to 6 PM roughly)
+    }
+
+    static String whatBreakIsIt(int intHour, int intMinute) {
+        // Iterate through the timetable for all rooms and days
+        for (int roomIndex = 0; roomIndex < App.timeTable.length; roomIndex++) {
+            for (int dayIndex = 0; dayIndex < App.timeTable[roomIndex].length; dayIndex++) {
+                for (int lessonIndex = 0; lessonIndex < App.timeTable[roomIndex][dayIndex].length; lessonIndex++) {
+                    Lesson lesson = App.timeTable[roomIndex][dayIndex][lessonIndex];
+                    if (lesson != null) {
+                        // Check if this lesson is labeled as "Lunch"
+                        if (lesson.getStartTime().equals("Lunch")
+                                || lesson.getEndTime().equals("Lunch")) {
+                            return "Lunch"; // It's lunch time
+                        }
+                        // Check if the time is between any lessons (a short break)
+                        String[] startTime = lesson.getStartTime().split(":");
+                        String[] endTime = lesson.getEndTime().split(":");
+
+                        int startHour = Integer.parseInt(startTime[0]);
+                        int startMinute = Integer.parseInt(startTime[1]);
+                        int endHour = Integer.parseInt(endTime[0]);
+                        int endMinute = Integer.parseInt(endTime[1]);
+
+                        // Check if the given time is during the current lesson
+                        if ((intHour > startHour
+                                || (intHour == startHour && intMinute >= startMinute)) &&
+                                (intHour < endHour || (intHour == endHour
+                                        && intMinute < endMinute))) {
+                            return "Short"; // It is a short break (between lessons)
+                        }
+                    }
+                }
+            }
+        }
+
+        return "No Break"; // If no break is found, return "No Break"
+    }
+
 }

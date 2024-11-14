@@ -3,9 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    // #region Fields
+    // #region Constants
     private static final Scanner scanner = new Scanner(System.in);
-
     private static final int ROOM_COUNT = 3;
     private static final int DAY_COUNT = 5;
     private static final int LESSON_COUNT = 12;
@@ -13,16 +12,14 @@ public class App {
     public static final Lesson[][][] timeTable = new Lesson[ROOM_COUNT][DAY_COUNT][LESSON_COUNT];
     private static final Teacher[] teachers = new Teacher[Teacher.nameMap.size()];
 
-    // Get data from the last 8'000 entries seeing as that is the maximum
-    private static final List<Co2Data> room39Data = Co2Data.getData(
-            "https://api.thingspeak.com/channels/1521262/feeds.csv?results=8000",
-            39);
-    private static final List<Co2Data> room38Data = Co2Data.getData(
-            "https://api.thingspeak.com/channels/1364580/feeds.csv?results=8000",
-            38);
-    private static final List<Co2Data> room37Data = Co2Data.getData(
-            "https://api.thingspeak.com/channels/1521263/feeds.csv?results=8000",
-            37);
+    // URLs for fetching CO2 data
+    private static final String ROOM_39_URL = "https://api.thingspeak.com/channels/1521262/feeds.csv?results=8000";
+    private static final String ROOM_38_URL = "https://api.thingspeak.com/channels/1364580/feeds.csv?results=8000";
+    private static final String ROOM_37_URL = "https://api.thingspeak.com/channels/1521263/feeds.csv?results=8000";
+
+    private static final List<Co2Data> room39Data = Co2Data.getData(ROOM_39_URL, 39);
+    private static final List<Co2Data> room38Data = Co2Data.getData(ROOM_38_URL, 38);
+    private static final List<Co2Data> room37Data = Co2Data.getData(ROOM_37_URL, 37);
 
     // #region Initialization
     private static void initializeTeachers() {
@@ -38,17 +35,46 @@ public class App {
         FillTable.fill39TimeTable();
     }
 
-    // #region Calculations
-    private static void calculatePoints() {
-        // Point calculation logic
+    // #region Calculation
+    private static void calculatePoints(List<Co2Data> data) {
+        for (Co2Data co2Data : data) {
+            Date temp = co2Data.getDate();
+            int intHour = temp.getHour();
+            int intMinute = temp.getMinute();
+            if (FillTable.isBreak(intHour, intMinute)) {
+                String whatBreak = FillTable.whatBreakIsIt(intHour, intMinute);
+
+                switch (whatBreak) {
+                    case "short":
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
+    private static int calculateFiveMinuteBreakPoints(Co2Data data) {
+
+        return 5;
+    }
+
+    private static int calculateLongerBreakPoints(Co2Data data) {
+        return 10;
+    }
+
+    private static int calculateBonusPoints(Co2Data data) {
+        return 5;
+    }
+
+    // #region Sorting Printing
     private static void sortTeachers() {
         Arrays.sort(teachers,
                 (a, b) -> Integer.compare(b.getPoints().getTotalPoints(), a.getPoints().getTotalPoints()));
     }
 
-    // #region Input - Output handler
     private static void printTeachers() {
         int rank = 1;
         int previousPoints = -1;
@@ -72,6 +98,7 @@ public class App {
         }
     }
 
+    // #region User Interaction
     private static int getUserInput(String textOutput) {
         System.out.println(textOutput);
         while (true) {
@@ -86,8 +113,8 @@ public class App {
 
     private static void printExplanation() {
         System.out.println("Point calculation explanation:");
-        System.out.println("1. Up to 5 points for keeping the window open during a small break.");
-        System.out.println("2. Up to 10 points for long breaks, depending on window usage.");
+        System.out.println("1. Up to 5 points for keeping the window open during a small pause.");
+        System.out.println("2. Up to 10 points for long pauses, depending on window usage.");
         System.out.println("3. 5 bonus points for teacher switches in the room.");
     }
 
@@ -119,7 +146,7 @@ public class App {
 
     // #region Main
     public static void main(String[] args) {
-        boolean debbugingList = true;
+        boolean debbugingList = false;
         if (debbugingList) {
             debbugingValueLists(room37Data);
             // debbugingValueLists(room38Data);
@@ -127,7 +154,9 @@ public class App {
         } else {
             fillInTimeTable();
             initializeTeachers();
-            calculatePoints();
+            calculatePoints(room37Data);
+            calculatePoints(room38Data);
+            calculatePoints(room39Data);
             sortTeachers();
             printTeachers();
 

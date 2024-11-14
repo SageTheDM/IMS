@@ -1,27 +1,26 @@
 public class Lesson {
     // #region Fields
-    private int roomNumberNumber;
+    private int roomNumber;
     private String teacherInitials;
     private String startTime;
     private String endTime;
-    private String weekweekDay;
+    private String weekDay;
 
     // #region Constructor
-    // Constructor to initialize all fields
-    public Lesson(int roomNumber, String teacherInitials, String startTime, String endTime, String weekweekDay) {
-        this.roomNumberNumber = roomNumber;
+    public Lesson(int roomNumber, String teacherInitials, String startTime, String endTime, String weekDay) {
+        this.roomNumber = roomNumber;
         this.teacherInitials = teacherInitials;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.weekweekDay = weekweekDay;
+        this.weekDay = weekDay;
     }
 
     // #region Getters
-    public int getroomNumber() {
-        return roomNumberNumber;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public String getteacherInitials() {
+    public String getTeacherInitials() {
         return teacherInitials;
     }
 
@@ -33,8 +32,7 @@ public class Lesson {
         return endTime;
     }
 
-    public String getweekDay() {
-        return weekweekDay;
+    public String getWeekDay() {
+        return weekDay;
     }
-
 }

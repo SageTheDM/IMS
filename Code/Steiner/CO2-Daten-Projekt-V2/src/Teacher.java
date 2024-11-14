@@ -10,6 +10,7 @@ public class Teacher {
 
     // #region Initialization
     static {
+        // Mapping short names to full teacher names
         nameMap.put("Hm", "Hummel");
         nameMap.put("Bd", "Bender");
         nameMap.put("Bu", "Burger");
@@ -32,20 +33,19 @@ public class Teacher {
         nameMap.put("Zu", "Zuniga");
     }
 
-
     // #region Constructor
     public Teacher(String name) {
+        // Use the short name to find the full name from the nameMap
         this.name = nameMap.getOrDefault(name, "Unknown");
-        this.points = new Points();
+        this.points = new Points(); // Initialize a new Points object
     }
 
     // #region Getters
     public String getName() {
-        return name;
+        return name; // Return the teacher's full name
     }
 
     public Points getPoints() {
-        return points;
+        return points; // Return the Points object associated with this teacher
     }
-
 }
