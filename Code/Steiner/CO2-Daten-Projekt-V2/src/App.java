@@ -60,18 +60,15 @@ public class App {
         }
     }
 
-    private static int calculateFiveMinuteBreakPoints(Co2Data data) {
+    private static void calculateFiveMinuteBreakPoints(Co2Data data) {
         calculateBonusPoints(data);
-        return 5;
     }
 
-    private static int calculateLongerBreakPoints(Co2Data data) {
+    private static void calculateLongerBreakPoints(Co2Data data) {
         calculateBonusPoints(data);
-        return 10;
     }
 
-    private static int calculateBonusPoints(Co2Data data) {
-        return 5;
+    private static void calculateBonusPoints(Co2Data data) {
     }
 
     // #region Sorting Printing
