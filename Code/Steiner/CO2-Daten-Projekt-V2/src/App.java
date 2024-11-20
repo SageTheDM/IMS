@@ -75,7 +75,6 @@ public class App {
                     case "long":
                         calculateLongerBreakPoints(data, time, roomNumber);
                         break;
-
                     default:
                         break;
                 }
@@ -83,6 +82,7 @@ public class App {
         }
     }
 
+    // #region 5min
     private static int calculateFiveMinuteBreakPoints(List<Co2Data> data, int[] time, int roomNumber) {
         // Calculate the time range for the break (e.g., a 5-minute break)
         int startMinute = time[0];
@@ -117,6 +117,7 @@ public class App {
         return Math.max(points, 0); // Ensure that points don't go below zero
     }
 
+    // #region 5+ min
     private static int calculateLongerBreakPoints(List<Co2Data> data, int[] time, int roomNumber) {
         // Take the time for the entire break
         int startMinute = time[0];
@@ -151,11 +152,12 @@ public class App {
         return Math.max(points, 0); // Ensure that points don't go below zero
     }
 
+    // #region bonus
     private static int calculateBonusPoints(List<Co2Data> data, int[] time, int roomNumber) {
         // Check if the next lesson isn't lunch or the same teacher (if the next lesson
         // is lunch, no bonus points possible)
-        boolean isTeacherChange = isTeacherChange(data, roomNumber); // Check if the teacher is changing
-        boolean isNextLessonLunch = isNextLessonLunch(data, roomNumber);
+        boolean isTeacherChange = isTeacherChange(data, roomNumber, time); // Check if the teacher is changing
+        boolean isNextLessonLunch = FillTable.isNextLessonLunch();
 
         if (!isNextLessonLunch && isTeacherChange) {
             return 5; // Bonus points for teacher switch
@@ -164,15 +166,11 @@ public class App {
         }
     }
 
-    private static boolean isTeacherChange(List<Co2Data> data, int roomNumber) {
-
-        return false; // Placeholder logic
-    }
-
-    private static boolean isNextLessonLunch(List<Co2Data> data, int roomNumber) {
-        // Logic to check if the next lesson is lunch (can be based on time and lesson
-        // schedule)
-        return false; // Placeholder logic
+    // #region checks
+    private static boolean isTeacherChange(List<Co2Data> data, int roomNumber, int[] time) {
+        // go through the lesson table of that day and time for the room
+        // check if the last teacher in the room equals itself or another teacher
+        return false; // Placeholder logic (to be implemented based on the timetable)
     }
 
     private static Co2Data getCo2DataForMinute(List<Co2Data> data, int minute) {

@@ -84,54 +84,7 @@ public class FillTable {
                 "Friday", START_TIMES, END_TIMES, roomIndex);
     }
 
-    static boolean isBreak(int intHour, int intMinute) {
-        // Check if the time is between 7 AM and 5 PM
-        if (intHour >= 7 && intHour <= 17) {
-            // Check if the time falls between any lesson start and end times
-            for (int i = 0; i < START_TIMES.length; i++) {
-                // Split the start and end times into hours and minutes
-                String[] startTime = START_TIMES[i].split(":");
-                String[] endTime = END_TIMES[i].split(":");
-
-                int startHour = Integer.parseInt(startTime[0]);
-                int startMinute = Integer.parseInt(startTime[1]);
-                int endHour = Integer.parseInt(endTime[0]);
-                int endMinute = Integer.parseInt(endTime[1]);
-
-                // Check if the given time is during the current lesson
-                if ((intHour > startHour || (intHour == startHour && intMinute >= startMinute)) &&
-                        (intHour < endHour || (intHour == endHour && intMinute < endMinute))) {
-                    return false; // It's not a break, it's during a lesson
-                }
-            }
-            return true; // If no lessons match, it must be a break
-        }
-
-        return false; // Time is outside of the school hours (7 AM to 6 PM roughly)
-    }
-
-    static String whatBreakIsIt(int intHour, int intMinute) {
-        String whatBreak = "";
-        for (int i = 0; i < END_TIMES.length; i++) {
-            String[] tempEnd = END_TIMES[i].split(":");
-            String[] tempStart = START_TIMES[i].split(":");
-            if (intHour >= Integer.parseInt(tempStart[0]) && intHour <= Integer.parseInt(tempEnd[0])) {
-                if (intMinute >= Integer.parseInt(tempStart[1])
-                        && intMinute <= Integer.parseInt(tempEnd[1])) {
-                    if (Integer.parseInt(tempEnd[1]) - Integer.parseInt(tempStart[1]) == 5) {
-                        whatBreak = "short";
-                    } else if (Integer.parseInt(tempEnd[1]) - Integer.parseInt(tempStart[1]) > 5) {
-                        whatBreak = "long";
-                    } else {
-                        whatBreak = "No Break";
-                    }
-                }
-
-            }
-        }
-        return whatBreak; // If no break is found, return "No Break"
-    }
-
+    // #region Check Methods
     static int[] whatTime(int intHour, int intMinute) {
         int[] result = new int[2]; // [most recent end time, next start time]
         result[0] = -1; // Initialize to -1 (no previous end time found)
@@ -161,5 +114,80 @@ public class FillTable {
         }
 
         return result;
+    }
+
+    static boolean isNextLessonLunch(int intHour, int intMinute, int roomIndex) {
+        int currentTimeInMinutes = intHour * 60 + intMinute;
+        int nextLessonIndex = getNextLessonIndex(currentTimeInMinutes, roomIndex);
+
+        if (nextLessonIndex == -1) {
+            return false;
+        }
+
+        String nextLessonStartTime = START_TIMES[nextLessonIndex];
+        String[] nextLessonStartParts = nextLessonStartTime.split(":");
+        int nextLessonStartInMinutes = Integer.parseInt(nextLessonStartParts[0]) * 60
+                + Integer.parseInt(nextLessonStartParts[1]);
+
+        if (nextLessonStartInMinutes > currentTimeInMinutes) {
+            String teacherShortName = App.timeTable[roomIndex][getDayIndex("Monday")][nextLessonIndex]
+                    .getTeacherInitials();
+            return teacherShortName.equals("Lunch");
+        }
+
+        return false;
+    }
+
+    private static int getNextLessonIndex(int currentTimeInMinutes, int roomIndex) {
+        for (int i = 0; i < START_TIMES.length; i++) {
+            String[] startParts = START_TIMES[i].split(":");
+            int startTimeInMinutes = Integer.parseInt(startParts[0]) * 60 + Integer.parseInt(startParts[1]);
+
+            if (startTimeInMinutes > currentTimeInMinutes) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    static boolean isBreak(int intHour, int intMinute) {
+        if (intHour >= 7 && intHour <= 17) {
+            for (int i = 0; i < START_TIMES.length; i++) {
+                String[] startTime = START_TIMES[i].split(":");
+                String[] endTime = END_TIMES[i].split(":");
+
+                int startHour = Integer.parseInt(startTime[0]);
+                int startMinute = Integer.parseInt(startTime[1]);
+                int endHour = Integer.parseInt(endTime[0]);
+                int endMinute = Integer.parseInt(endTime[1]);
+
+                if ((intHour > startHour || (intHour == startHour && intMinute >= startMinute)) &&
+                        (intHour < endHour || (intHour == endHour && intMinute < endMinute))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    static String whatBreakIsIt(int intHour, int intMinute) {
+        String whatBreak = "";
+        for (int i = 0; i < END_TIMES.length; i++) {
+            String[] tempEnd = END_TIMES[i].split(":");
+            String[] tempStart = START_TIMES[i].split(":");
+            if (intHour >= Integer.parseInt(tempStart[0]) && intHour <= Integer.parseInt(tempEnd[0])) {
+                if (intMinute >= Integer.parseInt(tempStart[1])
+                        && intMinute <= Integer.parseInt(tempEnd[1])) {
+                    if (Integer.parseInt(tempEnd[1]) - Integer.parseInt(tempStart[1]) == 5) {
+                        whatBreak = "short";
+                    } else if (Integer.parseInt(tempEnd[1]) - Integer.parseInt(tempStart[1]) > 5) {
+                        whatBreak = "long";
+                    }
+                }
+            }
+        }
+        return whatBreak;
     }
 }
