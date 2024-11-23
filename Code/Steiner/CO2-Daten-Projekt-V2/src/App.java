@@ -60,110 +60,27 @@ public class App {
 
     // #region Calculation
     private static void calculatePoints(List<Co2Data> data, int roomNumber) {
-        for (Co2Data co2Data : data) {
-            Date temp = co2Data.getDate();
-            int intHour = temp.getHour();
-            int intMinute = temp.getMinute();
-            if (FillTable.isBreak(intHour, intMinute)) {
-                String whatBreak = FillTable.whatBreakIsIt(intHour, intMinute);
-                int[] time = FillTable.whatTime(intHour, intMinute);
 
-                switch (whatBreak) {
-                    case "short":
-                        calculateFiveMinuteBreakPoints(data, time, roomNumber);
-                        break;
-                    case "long":
-                        calculateLongerBreakPoints(data, time, roomNumber);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
     }
 
     // #region 5min
     private static int calculateFiveMinuteBreakPoints(List<Co2Data> data, int[] time, int roomNumber) {
-        // Calculate the time range for the break (e.g., a 5-minute break)
-        int startMinute = time[0];
-        int endMinute = time[1];
-
-        int points = 5; // Start with maximum points
-
-        // Loop over each minute in the break and check the CO2 level
-        for (int i = startMinute; i < endMinute; i++) {
-            // Get the CO2 data for the current minute (using the data list)
-            Co2Data minuteData = getCo2DataForMinute(data, i); // data is already a List<Co2Data>
-
-            if (minuteData != null) {
-                int currentCo2 = minuteData.getCo2Level();
-                Co2Data previousMinuteData = getCo2DataForMinute(data, i - 1); // data is a List<Co2Data>
-
-                if (previousMinuteData != null) {
-                    int previousCo2 = previousMinuteData.getCo2Level();
-
-                    // If CO2 level doesn't decrease, subtract points
-                    if (currentCo2 >= previousCo2) {
-                        points--;
-                    }
-                }
-            }
-        }
-
-        // After calculating the points, consider any bonus points for teacher switch or
-        // other criteria
-        points += calculateBonusPoints(data, time, roomNumber);
-
-        return Math.max(points, 0); // Ensure that points don't go below zero
+        return 0;
     }
 
     // #region 5+ min
     private static int calculateLongerBreakPoints(List<Co2Data> data, int[] time, int roomNumber) {
-        // Take the time for the entire break
-        int startMinute = time[0];
-        int endMinute = time[1];
-
-        int points = 10; // Start with maximum points for longer break
-
-        // Loop over each minute in the break and check the CO2 level
-        for (int i = startMinute; i < endMinute; i++) {
-            // Get the CO2 data for the current minute (using the data list)
-            Co2Data minuteData = getCo2DataForMinute(data, i); // data is already a List<Co2Data>
-
-            if (minuteData != null) {
-                int currentCo2 = minuteData.getCo2Level();
-                Co2Data previousMinuteData = getCo2DataForMinute(data, i - 1); // data is a List<Co2Data>
-
-                if (previousMinuteData != null) {
-                    int previousCo2 = previousMinuteData.getCo2Level();
-
-                    // If CO2 level doesn't decrease, subtract points
-                    if (currentCo2 >= previousCo2) {
-                        points--;
-                    }
-                }
-            }
-        }
-
-        // After calculating the points, consider any bonus points for teacher switch or
-        // other criteria
-        points += calculateBonusPoints(data, time, roomNumber);
-
-        return Math.max(points, 0); // Ensure that points don't go below zero
+        return 0;
     }
 
     // #region bonus
     private static int calculateBonusPoints(List<Co2Data> data, int[] time, int roomNumber) {
-        // Check if the next lesson isn't lunch or the same teacher (if the next lesson
-        // is lunch, no bonus points possible)
-        boolean isTeacherChange = isTeacherChange(data, roomNumber, time); // Check if the teacher is changing
-        boolean isNextLessonLunch = FillTable.isNextLessonLunch();
+        return 0;
+    }
 
-        if (!isNextLessonLunch && isTeacherChange) {
-            return 5; // Bonus points for teacher switch
-        } else {
-            return 0; // No bonus points
-        }
+    private static double avarageMinuteCo2() {
+        // get the avrage value of a minute for the co2 value
+        return 0.0;
     }
 
     // #region checks
