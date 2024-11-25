@@ -1,0 +1,9 @@
+Notizen zum Auftrag:
+
+Das Word-Dokument ist in der Webview etwa 1 1/4 Seiten lang, während es in der Desktop-App genau eine Seite umfasst, wie von mir geplant.
+
+Die GUI-Elemente wurden bereits erklärt.
+
+Die GUI weist noch einige Imperfektionen auf, die während der Entwicklung in JavaFX besser behoben werden können als in Adobe XD.
+
+Das Wireframe wurde in Adobe XD erstellt, da ich es bevorzuge, ohne aktives Internet an solchen Projekten zu arbeiten. Das Internet wurde nur für die Suche nach Büchern, deren Beschreibung und Bildern verwendet.

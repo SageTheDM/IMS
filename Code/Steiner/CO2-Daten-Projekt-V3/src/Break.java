@@ -1,14 +1,10 @@
 public class Break {
     private Time start;
     private Time end;
-    private Teacher teacher;
-    private int room;
 
-    public Break(Time start, Time end, Teacher teacher, int room) {
+    public Break(Time start, Time end) {
         this.start = start;
         this.end = end;
-        this.teacher = teacher;
-        this.room = room;
     }
 
     public Time getStart() {
@@ -27,19 +23,34 @@ public class Break {
         this.end = end;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    /**
+     * Generates a Thingspeak API link based on channel number, date, and break
+     * period.
+     * 
+     * @param channelNumber The Thingspeak channel number.
+     * @param date          The date in format "YYYY-MM-DD".
+     * @param breakPeriod   The Break object containing start and end times.
+     * @return A formatted URL for fetching data from the Thingspeak API.
+     */
+    public static String generateLink(int channelNumber, String date, Break breakPeriod) {
+        String baseUrl = "https://api.thingspeak.com/channels/";
+        String formattedStartDateTime = date + " " + breakPeriod.getStart().toString();
+        String formattedEndDateTime = date + " " + breakPeriod.getEnd().toString();
+
+        return baseUrl + channelNumber + "/feeds.csv?start=" + formattedStartDateTime.replace(" ", "%20")
+                + "&end=" + formattedEndDateTime.replace(" ", "%20");
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
+    public static void main(String[] args) {
+        // Example usage
+        Time start = Time.valueOf("00:00:00");
+        Time end = Time.valueOf("23:59:59");
+        Break breakPeriod = new Break(start, end);
 
-    public int getRoom() {
-        return room;
-    }
+        String date = "2024-11-17";
+        int channelNumber = 1364580;
 
-    public void setRoom(int room) {
-        this.room = room;
+        String link = Break.generateLink(channelNumber, date, breakPeriod);
+        System.out.println(link);
     }
 }

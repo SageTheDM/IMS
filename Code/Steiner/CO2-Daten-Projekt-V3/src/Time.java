@@ -26,4 +26,12 @@ public class Time {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public static Time valueOf(String time) {
+        String[] parts = time.split(":");
+        int hour = Integer.parseInt(parts[0]);
+        int minute = Integer.parseInt(parts[1]);
+        Time returnValue = new Time(hour, minute);
+        return returnValue;
+    }
 }

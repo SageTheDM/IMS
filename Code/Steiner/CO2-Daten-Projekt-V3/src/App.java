@@ -1,78 +1,71 @@
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.HashMap;
 
 public class App {
     // #region app constants
+    private static final Scanner scanner = new Scanner(System.in);
     private static final Teacher[] teachers = new Teacher[Teacher.nameMap.size()];
-
-    private static final String[] START_SMALL_BREAK = {
-            "8:30", "10:25", "11:15", "12:05", "13:30", "14:20", "16:10", "17:00", "17:50"
-    };
-
-    private static final String[] END_SMALL_BREAK = {
-            "8:35", "10:30", "11:20", "12:10", "13:35", "14:25", "16:15", "17:05", "17:55"
-    };
-
-    private static final String[] START_LONG_BREAK = {
-            "9:20", "15:10"
-    };
-
-    private static final String[] END_LONG_BREAK = {
-            "9:40", "15:25"
-    };
 
     // Room channel numbers
     private static final int ROOM_39_NUMBER = 1521262;
     private static final int ROOM_38_NUMBER = 1364580;
     private static final int ROOM_37_NUMBER = 1521263;
 
-    // Date and time constants
-    private static final int START_YEAR = 2024;
-    private static final int START_MONTH = 11; // November
-    private static final int START_DAY = 4;
-    private static final int START_HOUR = 0;
-    private static final int START_MINUTE = 0;
-
-    private static final int END_YEAR = 2024;
-    private static final int END_MONTH = 11; // November
-    private static final int END_DAY = 8;
-    private static final int END_HOUR = 23;
-    private static final int END_MINUTE = 59;
-
-    // Formatting the start and end date with time
-    private static final String START_DATE = String.format("%d-%02d-%02d%%20%02d:%02d:00",
-            START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MINUTE);
-    private static final String END_DATE = String.format("%d-%02d-%02d%%20%02d:%02d:00",
-            END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MINUTE);
+    // Date and time constants for Start and End Dates
+    private static final String START_DATE = "2024-11-04";
+    private static final String END_DATE = "2024-11-08";
 
     // #region Initialization
-    private static String createUrl(int ROOM_X_NUMBER) {
-        return String.format("https://api.thingspeak.com/channels/%d/feeds.csv?start=%s&end=%s",
-                ROOM_X_NUMBER, START_DATE, END_DATE);
+
+    public static String generateLink(int channelNumber, String date, String startTime, String endTime) {
+        String baseUrl = "https://api.thingspeak.com/channels/";
+        String formattedStartDateTime = date + " " + startTime;
+        String formattedEndDateTime = date + " " + endTime;
+
+        return baseUrl + channelNumber + "/feeds.csv?start=" + formattedStartDateTime.replace(" ", "%20")
+                + "&end=" + formattedEndDateTime.replace(" ", "%20"); // %20 --> " "
+
     }
-    // #endregion
 
-    private static void getDataForBreak() {
-        // Co2Data[Wochentag][Room 37, 38 or 39]
-        Co2Data[][][] data = new Co2Data[5][3][11];
+    private static double getDataAverageForMinute(int minute, int hour, int number, String date) {
+        // get the url
+        String startTime = "";
+        if (hour < 10) {
+            startTime += "0";
+        }
+        startTime += String.valueOf(hour);
+        startTime += ":";
+        if (minute < 10) {
+            startTime += "0";
+        }
+        startTime += String.valueOf(minute);
+        String calcStarttime = startTime + ":00";
+        String calcEndTime = startTime + "59";
 
-        // Placeholder logic: Retrieve data for CO2 during breaks
-        // This should be replaced with the actual logic to get the data from ThingSpeak
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 11; k++) {
-                    data[i][j][k] = new Co2Data(null, k); // Placeholder CO2 data
+        String url = generateLink(number, date, calcStarttime, calcEndTime);
+
+        double averageCO2 = 0.0;
+        List<Co2Data> co2DataList = Co2Data.getData(url);
+        for (Co2Data co2Data : co2DataList) {
+            averageCO2 += co2Data.getCo2Level();
+        }
+
+        return averageCO2 / co2DataList.size(); // Example CO2 average level
+    }
+
+    private static void calculateBreakPoints(double[] minuteData, Break calcBreak) {
+        int duration = calcBreak.getEnd().getMinute() - calcBreak.getStart().getMinute();
+        int breakPoints = minuteData.length;
+        if (duration == minuteData.length) {
+            for (int i = 0; i < duration; i++) {
+                if (minuteData[i] < minuteData[i + 1]) {
+                    breakPoints--;
                 }
             }
-        }
-    }
 
-    private static double getDataAverageForMinute(String time) {
-        // Placeholder logic to calculate average CO2 levels
-        return 400.0; // Example CO2 average level
+        } else
+            System.out.println("Unexpected error");
     }
 
     private static void initializeTeachers() {
@@ -85,7 +78,6 @@ public class App {
         }
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
 
     // #region User Interaction
     private static int getUserInput(String textOutput) {
@@ -104,7 +96,6 @@ public class App {
         System.out.println("1. Up to 5 points for keeping the window open during a small pause.");
         System.out.println("2. Up to 10 points for long pauses, depending on window usage.");
         System.out.println("3. 5 bonus points for teacher switches in classrooms.");
-        System.out.println("4. Deduct points if CO2 levels are too high.");
     }
 
     // #region shutdown
@@ -168,15 +159,22 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Calculations in process please do not shut off...");
         initializeTeachers();
-
         sortTeachers();
         printTeachers();
+        // Loop threw each day with a specific classroom and after the weekdays are over
+        // go to the next of the 3 classroms
+        // go threw every break calculate the point and give them to the teacher
+        // directly
+        // remember the point class
+        // breakShedule needed
+
         while (true) {
             int userInput = getUserInput(
                     "Do you want to see how the points were calculated? (Yes 1, No 0; anything is an error)");
-
             if (userInput == 1) {
                 printExplanation();
+                // add a more detailed listing of the teacher since points can be broken down
+                // further
                 printShutDown();
                 break;
             } else if (userInput == 0) {

@@ -2,21 +2,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Co2Data {
-    // #region Fields
     private Date date;
     private int co2Level;
 
-    // #region Constructor
+    // Constructor
     public Co2Data(Date date, int co2Level) {
         this.date = date;
         this.co2Level = co2Level;
     }
 
-    // #region Getters and Setters
+    // Getters and Setters
     public Date getDate() {
         return date;
     }
@@ -33,17 +34,15 @@ public class Co2Data {
         this.co2Level = co2Level;
     }
 
-    // #region Data Fetching
-    // Method to fetch and parse CO2 data from a URL
-    public static List<Co2Data> getData(String csvURL, int classRoomNumber) {
+    // Fetch and parse data from a CSV URL
+    public static List<Co2Data> getData(String csvURL) {
         List<Co2Data> dataList = new ArrayList<>();
-        Date referenceDate = new Date(8, 11, 2024, 0, 0); // Reference date: November 8, 2024
 
         try {
             URL url = new URL(csvURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/csv");
+            conn.setRequestProperty("Accept", "text/csv");
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP Error code : " + conn.getResponseCode());
@@ -54,66 +53,36 @@ public class Co2Data {
 
             String output;
             while ((output = br.readLine()) != null) {
-                Co2Data data = parseData(output, classRoomNumber);
-                if (data != null && isNewerThanReferenceDate(data.getDate(), referenceDate)) {
+                Co2Data data = parseData(output);
+                if (data != null) {
                     dataList.add(data);
                 }
             }
             conn.disconnect();
 
         } catch (Exception e) {
-            System.out.println("Exception in NetClientGet: " + e);
+            System.out.println("Error in data fetching: " + e);
         }
 
         return dataList;
     }
 
-    // #region Date Comparison
-    // Method to compare if the data date is newer than the reference date
-    private static boolean isNewerThanReferenceDate(Date dataDate, Date referenceDate) {
-        if (dataDate.getYear() > referenceDate.getYear()) {
-            return true;
-        } else if (dataDate.getYear() == referenceDate.getYear()) {
-            if (dataDate.getMonth() > referenceDate.getMonth()) {
-                return true;
-            } else if (dataDate.getMonth() == referenceDate.getMonth()) {
-                return dataDate.getDay() > referenceDate.getDay();
-            }
-        }
-        return false;
-    }
-
-    // #region Data Parsing
-    // Method to parse CO2 data from a CSV line
-    private static Co2Data parseData(String csvLine, int classRoomNumber) {
-        String[] fields = csvLine.split(",");
-        if (fields.length < 5)
-            return null;
-
+    // Helper method to parse CSV data and create a Co2Data object
+    private static Co2Data parseData(String line) {
         try {
-            String[] dateTime = fields[0].split(" ");
-            String[] dateParts = dateTime[0].split("-");
-            String[] timeParts = dateTime[1].split(":");
+            String[] parts = line.split(",");
+            String dateStr = parts[0].trim(); // assuming date is in the first column
+            int co2Level = Integer.parseInt(parts[1].trim()); // assuming CO2 level is in the second column
 
-            int year = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]);
-            int day = Integer.parseInt(dateParts[2]);
-            int hour = Integer.parseInt(timeParts[0]);
-            int minute = Integer.parseInt(timeParts[1]);
-            Date date = new Date(day, month, year, hour, minute);
-
-            int co2Level = Integer.parseInt(fields[2]);
+            // Convert the date string into a Date object (assumes CSV date format is
+            // yyyy-MM-dd HH:mm:ss)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = sdf.parse(dateStr);
 
             return new Co2Data(date, co2Level);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
+            System.out.println("Error parsing data line: " + e);
             return null;
         }
-    }
-
-    // #region ToString Method
-    // Method to return a string representation of the CO2 data
-    @Override
-    public String toString() {
-        return "Date: " + date + ", CO2 Level: " + co2Level;
     }
 }
