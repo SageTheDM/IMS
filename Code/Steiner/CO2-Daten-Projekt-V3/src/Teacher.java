@@ -42,18 +42,6 @@ public class Teacher {
         this.points = new Points(); // Initialize Points object when Teacher is created
     }
 
-    // #region Timetable Methods
-    public void setTimetable(String day, String[] classes) {
-        if (day == null || classes == null || classes.length == 0) {
-            throw new IllegalArgumentException("Day and classes cannot be null or empty.");
-        }
-        timetable.put(day, classes);
-    }
-
-    public String[] getTimetableForDay(String day) {
-        return timetable.getOrDefault(day, new String[0]);
-    }
-
     // #region Getters and Setters
     public String getName() {
         return name; // Return the teacher's full name
@@ -71,6 +59,12 @@ public class Teacher {
         this.points.setFiveMinuteBreak(fiveMinute);
         this.points.setLongerBreak(tenMinutes);
         this.points.setBonusPoints(bonusPoints);
+    }
+
+    public void addPoints(int fiveMinute, int tenMinutes, int bonusPoints) {
+        this.points.addFiveMinuteBreakPoints(fiveMinute);
+        this.points.addLongerBreakPoints(tenMinutes);
+        this.points.addBonusPoints(bonusPoints);
     }
 
     public int getTotalPoints() {

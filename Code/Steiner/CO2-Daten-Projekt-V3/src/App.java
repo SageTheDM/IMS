@@ -54,7 +54,7 @@ public class App {
         return averageCO2 / co2DataList.size(); // Example CO2 average level
     }
 
-    private static void calculateBreakPoints(double[] minuteData, Break calcBreak) {
+    private static void calculateBreakPoints(double[] minuteData, Break calcBreak, Teacher teacher) {
         int duration = calcBreak.getEnd().getMinute() - calcBreak.getStart().getMinute();
         int breakPoints = minuteData.length;
         if (duration == minuteData.length) {
@@ -63,9 +63,17 @@ public class App {
                     breakPoints--;
                 }
             }
-
         } else
             System.out.println("Unexpected error");
+        if (duration > 5) {
+            teacher.addPoints(0, breakPoints, 0);
+        } else {
+            teacher.addPoints(breakPoints, 0, 0);
+        }
+
+        // check if next lesson is lunch another teacher or the same and plan
+        // accordingly
+
     }
 
     private static void initializeTeachers() {
@@ -161,6 +169,12 @@ public class App {
         initializeTeachers();
         sortTeachers();
         printTeachers();
+        for (int classrooms = 0; classrooms < 3; classrooms++) {
+            for (int weekday = 0; weekday < 5; weekday++) {
+                // get the url and data
+                // calculate points
+            }
+        }
         // Loop threw each day with a specific classroom and after the weekdays are over
         // go to the next of the 3 classroms
         // go threw every break calculate the point and give them to the teacher
