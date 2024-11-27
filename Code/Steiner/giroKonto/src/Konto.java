@@ -2,39 +2,38 @@ public class Konto {
     private String kontonummer;
     private double kontostand;
 
-    public Konto(String kontonummer, int kontostand) {
-        if (kontonummer.length() == 10) {
-            this.kontonummer = kontonummer;
-            this.kontostand = kontostand;
-        } else
-            System.out.println("Es ist fehler beim erstellen des Konto aufgetreten");
+    // Constructor
+    public Konto(String kontonummer, double kontostand) {
+        this.kontonummer = kontonummer;
+        this.kontostand = kontostand;
     }
 
-    public String getKontonummer() {
-        return kontonummer;
-    }
-
+    // Getter for kontostand
     public double getKontostand() {
         return kontostand;
     }
 
-    public void abheben(double betrag) {
-        if (kontostand >= 0) {
-            this.kontostand -= betrag;
-        } else
-            System.out.println("Fehlermeldung #1225");
+    // Getter for kontonummer
+    public String getKontonummer() {
+        return kontonummer;
     }
 
+    // Method to deposit money
     public void einzahlen(double betrag) {
-        if (kontostand >= 0) {
-            this.kontostand += betrag;
-        } else
-            System.out.println("Fehlermeldung #5221");
+        kontostand += betrag;
+    }
+
+    // Method to withdraw money
+    public void auszahlen(double betrag) {
+        if (kontostand >= betrag) {
+            kontostand -= betrag;
+        } else {
+            System.out.println("Fehler: Nicht genügend Geld auf dem Konto!");
+        }
     }
 
     @Override
     public String toString() {
-        return "Konto [Kontonummer=" + kontonummer + ", Kontostand=" + kontostand + "CHF]";
+        return "Konto [Kontonummer=" + kontonummer + ", Kontostand=" + kontostand + "]";
     }
-
 }
