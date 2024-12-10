@@ -27,7 +27,11 @@ public class PrimaryController {
 
     @FXML
     public void initialize() {
-        // Bind the observable list to the ListView
+        items.add("Homer");
+        items.add("Bart");
+        items.add("Lisa");
+        items.add("Maggi");
+        items.add("Marge");
         list.setItems(items);
     }
 
