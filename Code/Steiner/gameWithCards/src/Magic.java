@@ -1,9 +1,15 @@
-public class Magic extends Card {
+public abstract class Magic extends Card {
     private int cost;
-    private String effect;
+
+    public Magic(String cardName, String cardDescription, int cost) {
+        super(cardName, cardDescription);
+        this.cost = cost;
+    }
+
+    public int getCost() {
+        return cost;
+    }
 
     @Override
-    public void activate() {
-
-    }
+    public abstract void activate();
 }

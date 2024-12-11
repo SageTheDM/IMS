@@ -1,9 +1,13 @@
 public abstract class Unit {
-    private int health;
-    private int defense;
-    private int attack;
-    private int reach;
-    private int speed;
+    protected int health;
+    protected int defense;
+    protected int attack;
+
+    public Unit(int health, int defense, int attack) {
+        this.health = health;
+        this.defense = defense;
+        this.attack = attack;
+    }
 
     public abstract void defend();
 
