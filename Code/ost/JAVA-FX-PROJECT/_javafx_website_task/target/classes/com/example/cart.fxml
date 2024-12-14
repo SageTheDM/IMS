@@ -1,16 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PrimaryController">
-   <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PrimaryController">
+   <top>
+      <HBox id="header" alignment="CENTER" prefHeight="60.0" prefWidth="631.0" spacing="20.0" styleClass="header" BorderPane.alignment="CENTER">
+         <children>
+            <!-- Main Title -->
+            <Label id="mainTitle" styleClass="mainTitle" text="Bookshop - Fantasy Brigade" />
+            
+            <!-- Spacer for alignment -->
+            <Pane HBox.hgrow="ALWAYS" />
+            
+            <!-- Buttons -->
+            <Button id="cartBtn" mnemonicParsing="false" styleClass="cartBtn" text="Cart" />
+            <Button id="loginBtn" mnemonicParsing="false" styleClass="loginBtn" text="Login" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <GridPane id="main" styleClass="main" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="449.0" minHeight="17.0" prefHeight="18.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="449.0" minHeight="30.0" prefHeight="394.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="223.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <ListView id="cartList" prefHeight="200.0" prefWidth="200.0" styleClass="cartList" GridPane.rowIndex="1" />
+            <Button id="btnCheckOut" mnemonicParsing="false" styleClass="btnCheckOut" text="Check out" GridPane.rowIndex="2" />
+            <Label id="cartTitle" styleClass="cartTitle" text="Your cart" />
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <VBox id="footer" prefHeight="188.0" prefWidth="1200.0" styleClass="footer" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <VBox alignment="TOP_LEFT" spacing="10.0">
+                           <children>
+                              <Label id="footerText" styleClass="footerText" text="Quick Links" />
+                              <Label id="footerText" styleClass="footerText" text="Home" />
+                              <Label id="footerText" styleClass="footerText" text="About Us" />
+                              <Label id="footerText" styleClass="footerText" text="Contact" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_LEFT" spacing="10.0">
+                     <children>
+                        <Label id="footerHeading2" prefWidth="534.0" styleClass="footerHeading" text="Contact Us" />
+                        <Label id="footerContact1" styleClass="footerText" text="Email: info@example.com" />
+                        <Label id="footerContact2" styleClass="footerText" text="Phone: +1 123 456 7890" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_LEFT" spacing="10.0">
+                     <children>
+                        <Label id="footerHeading3" styleClass="footerHeading" text="Follow Us" />
+                        <Label id="footerSocial1" styleClass="footerLink" text="Facebook" />
+                        <Label id="footerSocial2" styleClass="footerLink" text="Twitter" />
+                        <Label id="footerSocial3" styleClass="footerLink" text="Instagram" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="68.0" prefWidth="1170.0" spacing="10.0">
+               <children>
+                  <Label id="footerCopy" alignment="CENTER" contentDisplay="CENTER" styleClass="footerCopy" text="© 2024 My Website. All rights reserved." />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
