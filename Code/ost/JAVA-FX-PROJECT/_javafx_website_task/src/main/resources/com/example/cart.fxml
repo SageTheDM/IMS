@@ -56,19 +56,15 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="TOP_LEFT" prefHeight="145.0" prefWidth="470.0" spacing="10.0">
                      <children>
-                        <VBox alignment="TOP_LEFT" spacing="10.0">
-                           <children>
-                              <Label id="footerText" styleClass="footerText" text="Quick Links" />
-                              <Label id="footerText" styleClass="footerText" text="Home" />
-                              <Label id="footerText" styleClass="footerText" text="About Us" />
-                              <Label id="footerText" styleClass="footerText" text="Contact" />
-                           </children>
-                        </VBox>
+                        <Label id="footerText" prefHeight="25.0" prefWidth="226.0" styleClass="footerHeading" text="Quick Links" />
+                        <Label id="footerText" styleClass="footerText" text="Home" />
+                        <Label id="footerText" styleClass="footerText" text="About Us" />
+                        <Label id="footerText" styleClass="footerText" text="Contact" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_LEFT" spacing="10.0">
+                  <VBox alignment="TOP_LEFT" prefHeight="145.0" prefWidth="374.0" spacing="10.0">
                      <children>
                         <Label id="footerHeading2" prefWidth="534.0" styleClass="footerHeading" text="Contact Us" />
                         <Label id="footerContact1" styleClass="footerText" text="Email: info@example.com" />

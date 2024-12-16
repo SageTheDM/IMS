@@ -1,3 +1,5 @@
+/* General Layout and Styling */
+
 /* Main GridPane */
 #main {
     -fx-padding: 20;
@@ -7,50 +9,6 @@
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-blend-mode: overlay;
-}
-
-/* Individual cards */
-.cardDiv {
-    -fx-background-color: rgba(156, 89, 182, 0.7);
-    -fx-border-color: transparent; /* No border */
-    -fx-border-width: 0px; /* Remove border */
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-    -fx-padding: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5);
-    -fx-alignment: top-center;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-pref-width: 250;
-    -fx-pref-height: 230;
-    -fx-min-width: 250;
-    -fx-min-height: 230;
-}
-
-/* Card title styling */
-.cardTitel {
-    -fx-font-size: 18px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #ffffff;
-    -fx-padding: 5 0 15 0;
-    -fx-alignment: center;
-}
-
-/* Button inside cards */
-.cardBtn {
-    -fx-font-size: 14px;
-    -fx-background-color: #8e44ad;
-    -fx-text-fill: #ffffff;
-    -fx-background-radius: 20px;
-    -fx-padding: 8px 16px;
-    -fx-border-color: transparent; /* No border */
-    -fx-border-width: 0px; /* Remove border */
-    -fx-cursor: hand;
-    -fx-transition: background-color 0.3s ease;
-}
-
-.cardBtn:hover {
-    -fx-background-color: #732d91;
 }
 
 /* Header */
@@ -72,22 +30,6 @@
     -fx-letter-spacing: 1px;
 }
 
-/* Buttons in header */
-.cartBtn, .loginBtn {
-    -fx-font-size: 14px;
-    -fx-background-color: #8e44ad;
-    -fx-text-fill: #ffffff;
-    -fx-background-radius: 20px;
-    -fx-padding: 8px 16px;
-    -fx-border-color: transparent; /* No border */
-    -fx-border-width: 0px; /* Remove border */
-    -fx-transition: background-color 0.3s ease;
-}
-
-.cartBtn:hover, .loginBtn:hover {
-    -fx-background-color: #732d91;
-}
-
 /* Footer */
 .footer {
     -fx-background-color: #6a1b9a;
@@ -96,22 +38,18 @@
     -fx-box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.footerHeading, .footerText, .footerLink {
-    -fx-text-fill: #ffffff;
-}
-
-.footerCopy {
-    -fx-alignment: center;
-    -fx-padding: 5px;
-}
-
 .footerHeading {
     -fx-font-weight: bold;
     -fx-font-size: 18px;
     -fx-padding-bottom: 5px;
+    -fx-text-fill: #ffffff;
 }
 
-.footerLink, .footerText {
+.footerText, .footerLink, .footerCopy {
+    -fx-text-fill: #ffffff;
+}
+
+.footerLink {
     -fx-font-size: 14px;
     -fx-padding: 5px 0;
 }
@@ -122,82 +60,93 @@
 
 .footerCopy {
     -fx-font-size: 12px;
-    -fx-align: center;
-    -fx-text-fill: #ffffff;
-}
-
-/* Form Title */
-.formTitle,
-.cartTitle {
-    -fx-font-size: 26px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #6a1b9a;
+    -fx-padding: 5px;
     -fx-alignment: center;
-    -fx-padding: 10 0 20 0; /* Reduced the padding */
 }
 
-/* Form Fields */
-.formFields {
-    -fx-margin: 5 0 0 0; /* Reduced margin */
-    -fx-padding: 5 0 0 0; /* Reduced padding */
+/* Individual Cards */
+.cardDiv {
+    -fx-background-color: rgba(156, 89, 182, 0.7);
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5);
+    -fx-alignment: top-center;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-pref-width: 250;
+    -fx-pref-height: 230;
+    -fx-min-width: 250;
+    -fx-min-height: 230;
 }
 
-/* Form Labels */
-.formLabel {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-    -fx-padding: 3 0 5 0;
+.cardTitel {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5 0 15 0;
+    -fx-alignment: center;
+}
+
+.cardText {
     -fx-text-fill: #ffffff;
 }
 
-/* Form Inputs (TextFields and PasswordField) */
-.formInput {
-    -fx-padding: 1px;
+/* Buttons */
+
+/* Card Button */
+.cardBtn {
     -fx-font-size: 14px;
-    -fx-background-color: #f4f4f4;
-    -fx-border-color: #cccccc;
-    -fx-border-radius: 8px;
-    -fx-pref-width: 220px;
-    -fx-transition: all 0.3s ease;
+    -fx-background-color: #8e44ad;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.3s ease;
 }
 
-.formInput:focus {
-    -fx-border-color: #8e44ad;
+.cardBtn:hover {
+    -fx-background-color: #732d91;
 }
 
-/* Create Account Button */
-.btnCreateAccount,
-.btnLogin,
-.btnCheckOut {
+/* Header Buttons */
+.cartBtn, .loginBtn {
+    -fx-font-size: 14px;
+    -fx-background-color: #8e44ad;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.cartBtn:hover, .loginBtn:hover {
+    -fx-background-color: #732d91;
+}
+
+/* Form Buttons */
+.btnCreateAccount, .btnLogin, .btnCheckOut {
     -fx-font-size: 14px;
     -fx-background-color: #8e44ad;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 20px;
     -fx-padding: 8px 20px;
-    -fx-border-color: transparent; /* No border */
-    -fx-border-width: 0px; /* Remove border */
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
     -fx-cursor: hand;
     -fx-transition: background-color 0.3s ease;
 }
 
-.btnCreateAccount:hover,
-.btnLogin:hover,
-.btnCheckOut:hover {
-    -fx-font-size: 14px;
+.btnCreateAccount:hover, .btnLogin:hover, .btnCheckOut:hover {
     -fx-background-color: #732d91;
-    -fx-text-fill: #ffffff;
-    -fx-background-radius: 20px;
-    -fx-padding: 8px 16px;
-    -fx-border-color: transparent; /* No border */
-    -fx-border-width: 0px; /* Remove border */
-    -fx-transition: background-color 0.3s ease;
-}
-/* Listviews styles */
-.cartList{
-    -fx-background-color: rgba(156, 89, 182, 0.7);
 }
 
-/* Additional style for the Checkout Button */
+/* Specific Button - Checkout */
 #btnCheckOut {
     -fx-font-size: 16px;
     -fx-background-color: #8e44ad;
@@ -214,7 +163,46 @@
     -fx-background-color: #732d91;
 }
 
-/* Responsiveness for smaller screens */
+/* Forms */
+.formTitle, .cartTitle {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #6a1b9a;
+    -fx-alignment: center;
+    -fx-padding: 10 0 20 0;
+}
+
+.formFields {
+    -fx-margin: 5 0 0 0;
+    -fx-padding: 5 0 0 0;
+}
+
+.formLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 3 0 5 0;
+}
+
+.formInput {
+    -fx-padding: 1px;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8px;
+    -fx-pref-width: 220px;
+    -fx-transition: all 0.3s ease;
+}
+
+.formInput:focus {
+    -fx-border-color: #8e44ad;
+}
+
+/* List Views */
+.cartList {
+    -fx-background-color: rgba(156, 89, 182, 0.7);
+}
+
+/* Media Queries - Responsive Design */
 @media screen and (max-width: 768px) {
     #main {
         -fx-hgap: 10;
