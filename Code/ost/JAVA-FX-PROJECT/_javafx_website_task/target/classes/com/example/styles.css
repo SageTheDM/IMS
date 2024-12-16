@@ -172,6 +172,10 @@
     -fx-padding: 10 0 20 0;
 }
 
+.cartTitle{
+    -fx-text-fill: #ffffff;
+}
+
 .formFields {
     -fx-margin: 5 0 0 0;
     -fx-padding: 5 0 0 0;
@@ -201,8 +205,140 @@
 .cartList {
     -fx-background-color: rgba(156, 89, 182, 0.7);
 }
+.paypal {
+    -fx-background-image: url('icons/paypal.png');
+    -fx-background-size: contain; /* Ensures the whole image is shown */
+    -fx-background-repeat: no-repeat; /* Prevents the image from repeating */
+    -fx-background-position: center; /* Centers the image */
+    -fx-min-width: 100px;
+    -fx-min-height: 100px; /* Ensures consistent height for the element */
+}
+
+.bill {
+    -fx-background-image: url('icons/bill.png');
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+}
+
+.creditCard {
+    -fx-background-image: url('icons/credit.png');
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+}
+
+/* Table Styling */
+.table-view {
+    -fx-background-color: rgba(156, 89, 182, 0.7); /* Background color with transparency */
+    -fx-border-color: #8e44ad; /* Border color */
+    -fx-border-width: 2px; /* Border thickness */
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-font-size: 14px; /* Font size for text */
+    -fx-font-weight: normal; /* Normal font weight */
+    -fx-text-fill: #ffffff; /* White text */
+}
+
+/* Table Header */
+.table-view .column-header-background {
+    -fx-background-color: #8e44ad; /* Header background */
+    -fx-text-fill: white; /* Header text color */
+}
+
+/* Table Column Styling */
+.table-view .table-column {
+    -fx-alignment: center-left; /* Align text to the left */
+    -fx-padding: 8px 16px; /* Padding for columns */
+    -fx-font-size: 14px; /* Font size for column headers */
+    -fx-text-fill: #ffffff; /* White text */
+}
+
+/* Table Cell Styling */
+.table-view .table-cell {
+    -fx-background-color: transparent; /* Transparent background for cells */
+    -fx-border-color: transparent; /* No border for cells */
+    -fx-padding: 5px 10px; /* Padding for each cell */
+}
+
+/* Row Styling */
+.table-view .table-row-cell {
+    -fx-background-color: rgba(156, 89, 182, 0.3); /* Semi-transparent row background */
+    -fx-border-color: transparent; /* No border for rows */
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: rgba(156, 89, 182, 0.6); /* Darker row color on hover */
+}
+
+/* Table Scroll Bar */
+.table-view .scroll-bar {
+    -fx-background-color: #8e44ad; /* Scroll bar background color */
+}
 
 /* Media Queries - Responsive Design */
+
+/* For screens up to 1200px (large tablets and smaller desktops) */
+@media screen and (max-width: 1200px) {
+    #main {
+        -fx-hgap: 15;
+        -fx-vgap: 15;
+    }
+
+    .cardDiv {
+        -fx-pref-width: 45%;
+        -fx-min-width: 45%;
+        -fx-pref-height: 220;
+        -fx-min-height: 220;
+    }
+
+    .mainTitle {
+        -fx-font-size: 24px;
+    }
+
+    .footerCopy {
+        -fx-font-size: 12px;
+    }
+
+    .cartBtn, .loginBtn {
+        -fx-font-size: 13px;
+        -fx-padding: 7px 14px;
+    }
+}
+
+/* For screens up to 1024px (tablets and medium-sized devices) */
+@media screen and (max-width: 1024px) {
+    #main {
+        -fx-hgap: 15;
+        -fx-vgap: 15;
+    }
+
+    .cardDiv {
+        -fx-pref-width: 48%;
+        -fx-min-width: 48%;
+        -fx-pref-height: 210;
+        -fx-min-height: 210;
+    }
+
+    .mainTitle {
+        -fx-font-size: 24px;
+    }
+
+    .footerCopy {
+        -fx-font-size: 12px;
+    }
+
+    .cartBtn, .loginBtn {
+        -fx-font-size: 14px;
+        -fx-padding: 8px 15px;
+    }
+}
+
+/* For screens up to 768px (mobile devices and small tablets) */
 @media screen and (max-width: 768px) {
     #main {
         -fx-hgap: 10;
@@ -235,5 +371,53 @@
     .cartBtn, .loginBtn {
         -fx-font-size: 12px;
         -fx-padding: 6px 12px;
+    }
+}
+
+/* For screens up to 480px (very small screens like smartphones in portrait mode) */
+@media screen and (max-width: 480px) {
+    #main {
+        -fx-hgap: 5;
+        -fx-vgap: 5;
+    }
+
+    .cardDiv {
+        -fx-pref-width: 100%;
+        -fx-min-width: 100%;
+        -fx-pref-height: 150;
+        -fx-min-height: 150;
+    }
+
+    .cardTitel {
+        -fx-font-size: 14px;
+    }
+
+    .cardText {
+        -fx-font-size: 10px;
+    }
+
+    .mainTitle {
+        -fx-font-size: 18px;
+    }
+
+    .footerCopy {
+        -fx-font-size: 8px;
+    }
+
+    .cartBtn, .loginBtn {
+        -fx-font-size: 12px;
+        -fx-padding: 5px 10px;
+    }
+
+    .formTitle, .cartTitle {
+        -fx-font-size: 20px;
+    }
+
+    .formInput {
+        -fx-pref-width: 200px;
+    }
+
+    .footerHeading {
+        -fx-font-size: 16px;
     }
 }
